@@ -42,6 +42,18 @@ function playerMovement(dt)
   
   playerDrag(dt)  
   
+  if not ball.isThrown then
+    if love.keyboard.isDown("j") then
+      ball.previewThrowModeActive = true
+      ball.throwStrength = ball.throwStrength + dt
+    else
+      if ball.previewThrowModeActive then
+        ballThrow()
+        ball.previewThrowModeActive = false
+      end
+    end
+  end
+  
   if love.keyboard.isDown("a") then
     player.direction = "l"
     player.velx = player.velx - 5000 * dt

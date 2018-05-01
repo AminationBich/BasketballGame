@@ -20,8 +20,8 @@ end
 
 function randomBasketDirection()
 
-	basket.speedx = love.math.random(500)
-	basket.speedy = 500 - basket.speedx
+	basket.speedx = love.math.random(250)
+	basket.speedy = 250 - basket.speedx
 	if love.math.random(2) == 1 then
 		basket.speedx = - basket.speedx
 	end
@@ -39,7 +39,7 @@ function basketUpdate(dt)
 
 	if basket.directionTimer < 0 then
 		randomBasketDirection()
-		basket.directionTimer = 0.5
+		basket.directionTimer = 1.2
 	end
 	basket.x = basket.x + basket.speedx * dt
 	basket.y = basket.y + basket.speedy * dt
