@@ -43,8 +43,8 @@ end
 
 function ballUpdate(dt)
 
-  ballCollision()
   if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
+  ballCollision()
   updateBallPosition(dt)
 
 end
@@ -52,7 +52,7 @@ end
 function ballThrowPreview()
   
   love.graphics.setColor(1,0,0)
-  love.graphics.setLineWidth(5)
+  love.graphics.setLineWidth(1 + ball.throwStrength * 5)
   love.graphics.line(
     player.x + player.width / 2,
     player.y + player.height / 2,
