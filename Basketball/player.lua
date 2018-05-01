@@ -25,7 +25,17 @@ function drawPlayer()
   end
     
   love.graphics.draw(player.texture,player.x,player.y)
+  
+  drawPlayerZPosition()
 
+end
+
+function drawPlayerZPosition()
+  
+  love.graphics.setColor(0,0.2,0)
+  love.graphics.rectangle("fill",0,player.jumpStartHeight,1200,5)
+  love.graphics.setColor(1,1,1)
+  
 end
 
 function playerMovement(dt)
@@ -60,6 +70,20 @@ function playerMovement(dt)
       player.vely = player.vely + 2000 * dt
     end
     
+  else
+    if love.keyboard.isDown("s") then 
+      if player.jumpStartHeight < 800 then
+        player.jumpStartHeight = player.jumpStartHeight + 300 * dt
+        player.vely = player.vely + 2500 * dt
+      end
+    end
+  
+    if love.keyboard.isDown("w") then 
+      if player.jumpStartHeight > 650 then
+        player.jumpStartHeight = player.jumpStartHeight - 300 * dt
+        player.vely = player.vely - 2500 * dt
+      end
+    end
   end
   
   if love.keyboard.isDown("space") then
@@ -81,6 +105,10 @@ function playerMovement(dt)
   
 	player.x = player.x + player.velx * dt
   player.y = player.y + player.vely * dt
+  
+  if player.canJump then
+    player.jumpStartHeight = player.y + player.height
+  end
   
 end
 
@@ -122,9 +150,9 @@ end
 
 function playerGravity(dt)
   
-  if player.y > player.jumpStartHeight then
-    player.y = player.jumpStartHeight
-    player.vely = 0
+  if player.y > player.jumpStartHeight - player.height then
+    player.y = player.jumpStartHeight - player.height
+    player.vely = 150
     player.canJump = true
     player.canDoubleJump = true
   end
@@ -166,7 +194,7 @@ end
 function playerJump()
   
   if player.canJump then
-    player.jumpStartHeight = player.y
+    player.jumpStartHeight = player.y + player.height
     player.vely = - 1700
     player.canJump = false
     return
