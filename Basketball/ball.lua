@@ -98,7 +98,7 @@ function ballCollision()
     ball.vely = - ball.vely
   end
   
-  if ball.y - ball.height > player.jumpStartHeight then
+  if ball.y + ball.height > player.jumpStartHeight then
     ball.isThrown = false
   end
   
