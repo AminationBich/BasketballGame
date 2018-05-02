@@ -1,6 +1,7 @@
 require("ball")
 require("basket")
 require("player")
+require("shuriken")
 
 function love.load()
 
@@ -9,7 +10,12 @@ function love.load()
 	initBasket()
 	initPlayer()
   initBall()
-	
+  initShuriken()
+  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
+  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
+  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
+	createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
+
 end
 
 function love.update(dt)
@@ -17,6 +23,7 @@ function love.update(dt)
 	playerUpdate(dt)
   ballUpdate(dt)
 	basketUpdate(dt)
+  shurikenUpdate(dt)
 
 end
 
@@ -27,5 +34,6 @@ function love.draw()
 	drawPlayer()
   drawBall()
   drawBasket()
+  drawShuriken()
 	
 end
