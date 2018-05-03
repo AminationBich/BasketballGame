@@ -11,10 +11,7 @@ function love.load()
 	initPlayer()
   initBall()
   initShuriken()
-  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
-  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
-  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
-	createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))  createShuriken(math.random(0,1200),math.random(0,500),math.random(50,300),math.random(50,300))
+  createStandardShuriken()
 
 end
 

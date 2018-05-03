@@ -9,7 +9,11 @@ function initBall()
   ball.throwStrength = 0
   ball.x = player.x
   ball.y = player.y
+  ball.points = 5
+  ball.bounces = 0
   ball.isThrown = false
+  ball.throwCooldown = 0
+  ball.hasScored = false
   ball.previewThrowModeActive = false
   
 end
@@ -43,10 +47,44 @@ end
 
 function ballUpdate(dt)
 
+  updateThrowCooldown(dt)
   if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
   ballCollision()
   updateBallPosition(dt)
+  checkGoal()
 
+end
+
+function checkGoal()
+  
+  if (ball.x + ball.width > basket.x) and
+  (ball.x < basket.x + basket.width) and
+  (ball.y + ball.height > basket.y) and
+  (ball.y < basket.y + basket.height) then
+    if ball.hasScored == false then
+      increasePoints()
+      ball.hasScored = true
+    end
+  else
+    ball.hasScored = false
+  end
+  
+end
+
+function increasePoints()
+  
+  -- TODO
+  
+end
+
+function updateThrowCooldown(dt)
+  
+  ball.throwCooldown = ball.throwCooldown - dt
+  
+  if ball.throwCooldown <= 0 then
+    ball.throwCooldown = 0
+  end
+  
 end
 
 function ballThrowPreview()
@@ -64,13 +102,15 @@ end
 
 function ballThrow()
   
-  ball.throwStrength = ball.throwStrength + .5
+  ball.throwStrength = ball.throwStrength + .75
   ball.isThrown = true
+  ball.hasScored = false
   ball.x = player.x + player.width / 2
   ball.y = player.y + player.height / 2
-  ball.velx = player.velx * ball.throwStrength
+  ball.velx = player.velx * (ball.throwStrength + .5)
   ball.vely = player.vely * ball.throwStrength 
-  if ball.vely < -1400 then ball.vely = -1400 end
+  if ball.vely < -800 * ball.throwStrength then ball.vely = -800 * ball.throwStrength end
+  if ball.vely < -1600 then ball.vely = -1600 end
   ball.throwStrength = 0
   
 end
@@ -81,25 +121,39 @@ function ballGravity(dt)
 
 end
 
+function calcThrowCooldown()
+  
+  if ball.velx < 0 then
+    ball.velx = -ball.velx
+  end
+  
+  ball.throwCooldown = (1 / (ball.velx / 800 + .35))
+  
+end
+
 function ballCollision()
   
-    if ball.x < 0 then
+  if ball.x < 0 then
     ball.x = 0
     ball.velx = - ball.velx
+    ball.bounces = ball.bounces + 1
   end
   
   if ball.x > 1200 - ball.width then
     ball.x = 1200 - ball.width
     ball.velx = - ball.velx
+    ball.bounces = ball.bounces + 1
   end
   
   if ball.y < 0 then
     ball.y= 0
     ball.vely = - ball.vely
+    ball.bounces = ball.bounces + 1
   end
   
   if ball.y + ball.height > player.jumpStartHeight then
     ball.isThrown = false
+    calcThrowCooldown()
   end
   
 end

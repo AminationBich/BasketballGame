@@ -23,6 +23,18 @@ function createShuriken(p_x,p_y,p_velx,p_vely)
   
 end
 
+function createStandardShuriken()
+  
+  createShuriken(math.random(0,1200),math.random(0,500),100,100)
+  createShuriken(math.random(0,1200),math.random(0,500),200,200)
+  createShuriken(math.random(0,1200),math.random(0,500),150,150)
+  createShuriken(math.random(0,1200),math.random(0,500),150,150)
+  createShuriken(math.random(0,1200),math.random(0,500),250,250)
+  createShuriken(math.random(0,1200),math.random(0,500),250,150)
+  createShuriken(math.random(0,1200),math.random(0,500),250,150)
+  
+end
+
 function shurikenUpdate(dt)
   
   for i,v in ipairs(shuriken) do
@@ -41,7 +53,8 @@ function shurikenUpdate(dt)
       v.vely = - v.vely
     end
     
-    if v.y > player.jumpStartHeight - v.height then
+    if (v.y > player.jumpStartHeight - v.height) and
+    (v.vely > 0) then
       v.y = player.jumpStartHeight - v.height
       v.vely = - v.vely
     end
@@ -59,4 +72,4 @@ function drawShuriken()
     love.graphics.draw(shuriken.texture,v.x,v.y)
   end
   
-  end
+end

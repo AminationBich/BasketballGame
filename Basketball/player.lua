@@ -13,6 +13,7 @@ function initPlayer()
   player.jumpIsPressed = false
 	player.canJump = true
   player.canDoubleJump = true
+  player.health = 3
   
 end
 
@@ -43,7 +44,8 @@ function playerMovement(dt)
   playerDrag(dt)  
   
   if not ball.isThrown then
-    if love.keyboard.isDown("j") then
+    if (love.keyboard.isDown("j")) and
+       (ball.throwCooldown <= 0)then
       ball.previewThrowModeActive = true
       ball.throwStrength = ball.throwStrength + dt
     else
