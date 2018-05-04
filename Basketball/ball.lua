@@ -69,11 +69,14 @@ function checkGoal()
     ball.hasScored = false
   end
   
+  --pls Erklärung heute Abend ^^
+  
 end
 
 function increasePoints()
+  love.graphics.rectangle("fill",0,800,20,20,255)
   
-  -- TODO
+  -- TODO (Kann für mich zum Lernen benutzt werden)
   
 end
 
