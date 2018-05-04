@@ -74,6 +74,7 @@ function checkGoal()
 end
 
 function increasePoints()
+  love.graphics.rectangle("fill",0,800,20,20,255)
   
   -- TODO (Kann für mich zum Lernen benutzt werden)
   
