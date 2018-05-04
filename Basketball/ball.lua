@@ -69,11 +69,13 @@ function checkGoal()
     ball.hasScored = false
   end
   
+  --pls Erklärung heute Abend ^^
+  
 end
 
 function increasePoints()
   
-  -- TODO
+  -- TODO (Kann für mich zum Lernen benutzt werden)
   
 end
 
