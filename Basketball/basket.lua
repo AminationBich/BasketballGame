@@ -2,10 +2,10 @@ function initBasket()
 
 	basket = {}
   basket.texture = love.graphics.newImage("Textures/basket.png")
-	basket.x = 500
-	basket.y = 500
 	basket.width = 80
 	basket.height = 60
+  basket.x = math.random(0,1200 - basket.width)
+	basket.y = math.random(0,600 - basket.height)
 	basket.speedx = 0
 	basket.speedy = 0
 	basket.directionTimer = 0

@@ -17,11 +17,11 @@ end
 
 function love.update(dt)
 
-	playerUpdate(dt)
+  playerUpdate(dt)
   ballUpdate(dt)
-	basketUpdate(dt)
+  basketUpdate(dt)
   shurikenUpdate(dt)
-
+  
 end
 
 function love.draw()
@@ -32,5 +32,6 @@ function love.draw()
   drawBall()
   drawBasket()
   drawShuriken()
+  drawPlayerHealth(player.health.amount)
 	
 end

@@ -1,6 +1,8 @@
 function initShuriken()
   
   shuriken = {}
+  shuriken.width = 20
+  shuriken.height = 20
   shuriken.texture = love.graphics.newImage("Textures/shuriken.png")
   
 end
@@ -10,8 +12,6 @@ function createShuriken(p_x,p_y,p_velx,p_vely)
   local l_shuriken = {
     x = p_x,
     y = p_y,
-    width = 20,
-    height = 20,
     velx = p_velx,
     vely = p_vely,
   }
@@ -43,8 +43,8 @@ function shurikenUpdate(dt)
       v.velx = - v.velx
     end
     
-    if v.x > 1200 - v.width then
-      v.x = 1200 - v.width
+    if v.x > 1200 - shuriken.width then
+      v.x = 1200 - shuriken.width
       v.velx = - v.velx
     end
     
@@ -53,15 +53,30 @@ function shurikenUpdate(dt)
       v.vely = - v.vely
     end
     
-    if (v.y > player.jumpStartHeight - v.height) and
+    if (v.y > player.jumpStartHeight - shuriken.height) and
     (v.vely > 0) then
-      v.y = player.jumpStartHeight - v.height
+      v.y = player.jumpStartHeight - shuriken.height
       v.vely = - v.vely
     end
+    
+    shurikenHitPlayer(v.x,v.y)
     
     v.x = v.x + v.velx * dt
     v.y = v.y + v.vely * dt
     
+  end
+  
+end
+
+function shurikenHitPlayer(p_x,p_y)
+  
+  if (p_x + shuriken.width > player.x) and
+  (p_x < player.x + player.width) and
+  (p_y + shuriken.height > player.y) and
+  (p_y < player.y + player.height) then
+    if not player.isHit then
+      hitPlayer()
+    end
   end
   
 end

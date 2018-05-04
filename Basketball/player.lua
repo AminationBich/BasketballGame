@@ -13,7 +13,13 @@ function initPlayer()
   player.jumpIsPressed = false
 	player.canJump = true
   player.canDoubleJump = true
-  player.health = 3
+  player.hitCooldown = 0
+  player.isHit = false
+  player.health = {}
+  player.health.amount = 3
+  player.health.texture = love.graphics.newImage("Textures/Health.png")
+  player.health.width = 40
+  player.health.height = 40
   
 end
 
@@ -24,11 +30,54 @@ function drawPlayer()
   elseif player.direction == "l" then
     player.texture = love.graphics.newImage("Textures/playerLeft.png")
   end
-    
-  love.graphics.draw(player.texture,player.x,player.y)
+  
+  if player.isHit then
+    love.graphics.setColor(1,1 / (player.hitCooldown * 10),1 / (player.hitCooldown * 10))
+    if player.hitCooldown % 0.2 <= 0.16 then
+      love.graphics.draw(player.texture,player.x,player.y)
+    end
+  else
+    love.graphics.draw(player.texture,player.x,player.y)
+    love.graphics.setColor(1,1,1)
+  end
   
   drawPlayerZPosition()
 
+end
+
+function drawPlayerHealth()
+  
+  for i = 1,player.health.amount,1 do
+    love.graphics.draw(player.health.texture,
+      (4 + player.health.width) * i - player.health.width,
+      10)
+  end
+  
+end
+
+function addPlayerHealth(p_Amount)
+  
+  player.health.amount = player.health.amount + p_Amount
+  
+end
+
+function updatePlayerHitCooldown(dt)
+  
+  if player.hitCooldown <= 0 then
+    player.isHit = false
+    player.hitCooldown = 0
+  end
+  
+  player.hitCooldown = player.hitCooldown - dt
+  
+end
+
+function hitPlayer()
+  
+  player.health.amount = player.health.amount - 1
+  player.isHit = true
+  player.hitCooldown = 2
+  
 end
 
 function drawPlayerZPosition()
@@ -128,11 +177,13 @@ end
 
 function playerUpdate(dt)
 
+  updatePlayerHitCooldown(dt)
 	playerMovement(dt)
 	collisionDetection()
   if not player.canJump then
     playerGravity(dt)
   end	
+  
 end
 
 function collisionDetection(dt)
