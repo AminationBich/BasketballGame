@@ -93,8 +93,8 @@ function playerMovement(dt)
   playerDrag(dt)  
   
   if not ball.isThrown then
-    if (love.keyboard.isDown("j")) and
-       (ball.throwCooldown <= 0)then
+    if (love.mouse.isDown("1")) and
+    (ball.throwCooldown <= 0)then
       ball.previewThrowModeActive = true
       ball.throwStrength = ball.throwStrength + dt
     else
