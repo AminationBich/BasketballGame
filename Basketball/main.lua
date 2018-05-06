@@ -2,6 +2,7 @@ require("ball")
 require("basket")
 require("player")
 require("shuriken")
+require("GUI")
 
 function love.load()
 
@@ -11,16 +12,18 @@ function love.load()
 	initPlayer()
   initBall()
   initShuriken()
+  initGUIComponents()
   createStandardShuriken()
 
 end
 
 function love.update(dt)
-
+  
   playerUpdate(dt)
   ballUpdate(dt)
   basketUpdate(dt)
   shurikenUpdate(dt)
+  updateGUI(dt)
   
 end
 
@@ -32,6 +35,6 @@ function love.draw()
   drawBall()
   drawBasket()
   drawShuriken()
-  drawPlayerHealth(player.health.amount)
+  drawGUI()
 	
 end
