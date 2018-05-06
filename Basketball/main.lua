@@ -16,9 +16,6 @@ function love.load()
 end
 
 function love.update(dt)
-  
-  g_MouseX = love.mouse.getX()
-  g_MouseY = love.mouse.getY()
 
   playerUpdate(dt)
   ballUpdate(dt)

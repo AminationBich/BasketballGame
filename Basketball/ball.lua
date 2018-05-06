@@ -47,8 +47,8 @@ end
 
 function ballUpdate(dt)
 
-  if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
   updateThrowCooldown(dt)
+  if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
   ballCollision()
   updateBallPosition(dt)
   checkGoal()
@@ -92,46 +92,28 @@ end
 
 function ballThrowPreview()
   
-  local l_PreviewX,l_PreviewY = getThrowDirection(true)
-
   love.graphics.setColor(1,0,0)
   love.graphics.setLineWidth(1 + ball.throwStrength * 5)
   love.graphics.line(
     player.x + player.width / 2,
     player.y + player.height / 2,
-    l_PreviewX,
-    l_PreviewY)
+    player.x + player.width / 2 + player.velx / 10 * ball.throwStrength + .5,
+    player.y + player.height / 2 + player.vely / 20 * ball.throwStrength + .5)
   love.graphics.setColor(1,1,1)
   
 end
 
-function getThrowDirection(p_IsPreview)
-
-  local l_PreviewX = g_MouseX - (player.x + player.width / 2) 
-  local l_PreviewY = g_MouseY - (player.y + player.height / 2)
-  local l_Direction = math.sqrt(math.pow(l_PreviewX,2) + math.pow(l_PreviewY,2))
-  
-  if p_IsPreview then
-    return  player.x + player.width / 2 + (100 * ball.throwStrength * (l_PreviewX / l_Direction)), 
-      player.y + player.height / 2 + (100 * ball.throwStrength * (l_PreviewY / l_Direction))
-  end
-  
-  return (2000 * ball.throwStrength * (l_PreviewX / l_Direction)), 
-    (2000 * ball.throwStrength * (l_PreviewY / l_Direction))
-end
-
 function ballThrow()
-  
-  local l_DirectionX,l_DirectionY = getThrowDirection(false)
-  print(l_DirectionX,l_DirectionY)
   
   ball.throwStrength = ball.throwStrength + .75
   ball.isThrown = true
   ball.hasScored = false
   ball.x = player.x + player.width / 2
   ball.y = player.y + player.height / 2
-  ball.velx = l_DirectionX 
-  ball.vely = l_DirectionY 
+  ball.velx = player.velx * (ball.throwStrength + .5)
+  ball.vely = player.vely * ball.throwStrength 
+  if ball.vely < -800 * ball.throwStrength then ball.vely = -800 * ball.throwStrength end
+  if ball.vely < -1600 then ball.vely = -1600 end
   ball.throwStrength = 0
   
 end
