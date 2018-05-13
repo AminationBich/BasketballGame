@@ -9,8 +9,8 @@ function initBall()
   ball.throwStrength = 0
   ball.x = player.x
   ball.y = player.y
-  ball.points = 5
-  ball.bounces = 0
+  ball.points = 1
+  ball.bounces = 1
   ball.isThrown = false
   ball.throwCooldown = 0
   ball.hasScored = false
@@ -29,8 +29,13 @@ function drawBall()
 
 end 
 
-function updateBallPosition(dt)
+function updateBall(dt)
 
+  updateThrowCooldown(dt)
+  if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
+  ballCollision()
+  checkGoal()
+  
   if not ball.isThrown then
     if player.direction == "r" then
       ball.x = player.x + player.width - ball.width / 2
@@ -42,35 +47,30 @@ function updateBallPosition(dt)
     ballGravity(dt)
     ball.x = ball.x + ball.velx * dt
     ball.y = ball.y + ball.vely * dt
+    ball.points = ball.points + dt * 5
   end
-end
-
-function ballUpdate(dt)
-
-  updateThrowCooldown(dt)
-  if ball.throwStrength >= 1.5 then ball.throwStrength = 1.5 end
-  ballCollision()
-  updateBallPosition(dt)
-  checkGoal()
 
 end
 
 function checkGoal()
   
-  if (ball.x + ball.width > basket.x) and
-  (ball.x < basket.x + basket.width) and
-  (ball.y + ball.height > basket.y) and
-  (ball.y < basket.y + basket.height) then
-    if ball.hasScored == false then
-      increasePoints()
-      ball.hasScored = true
+  if ball.isThrown then
+    if (ball.x + ball.width > basket.x) and
+    (ball.x < basket.x + basket.width) and
+    (ball.y + ball.height > basket.y) and
+    (ball.y < basket.y + basket.height) then
+      if ball.hasScored == false then
+        increaseScore()
+        ball.hasScored = true
+      end
+    else
+      ball.hasScored = false
     end
-  else
-    ball.hasScored = false
   end
   
 end
 
+<<<<<<< HEAD
 function increasePoints()
   
   
@@ -79,6 +79,13 @@ function increasePoints()
   end
   
   love.graphics.print("Score:" + score)
+=======
+function increaseScore()
+
+  player.score = player.score + math.floor(ball.bounces * ball.points * (ball.velx + ball.vely) / 500)
+  addScoreText(math.floor(ball.bounces * ball.points * (ball.velx + ball.vely) / 500),basket.x,basket.y)
+  ball.points = ball.points + 5
+>>>>>>> 554942140cc341a4cbc82562f093ec1ac7d9c992
   
 end
 
@@ -138,27 +145,31 @@ end
 
 function ballCollision()
   
-  if ball.x < 0 then
-    ball.x = 0
-    ball.velx = - ball.velx
-    ball.bounces = ball.bounces + 1
-  end
-  
-  if ball.x > 1200 - ball.width then
-    ball.x = 1200 - ball.width
-    ball.velx = - ball.velx
-    ball.bounces = ball.bounces + 1
-  end
-  
-  if ball.y < 0 then
-    ball.y= 0
-    ball.vely = - ball.vely
-    ball.bounces = ball.bounces + 1
-  end
-  
-  if ball.y + ball.height > player.jumpStartHeight then
-    ball.isThrown = false
-    calcThrowCooldown()
+  if ball.isThrown then
+    if ball.x < 0 then
+      ball.x = 1
+      ball.velx = - ball.velx
+      ball.bounces = ball.bounces + 1
+    end
+    
+    if ball.x > 1200 - ball.width then
+      ball.x = 1200 - ball.width - 1
+      ball.velx = - ball.velx
+      ball.bounces = ball.bounces + 1
+    end
+    
+    if ball.y < 0 then
+      ball.y= 1
+      ball.vely = - ball.vely
+      ball.bounces = ball.bounces + 1
+    end
+    
+    if ball.y + ball.height > player.jumpStartHeight then
+      ball.isThrown = false
+      ball.bounces = 1
+      ball.points = 1
+      calcThrowCooldown()
+    end
   end
   
 end

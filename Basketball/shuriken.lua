@@ -25,17 +25,16 @@ end
 
 function createStandardShuriken()
   
-  createShuriken(math.random(0,1200),math.random(0,500),100,100)
   createShuriken(math.random(0,1200),math.random(0,500),200,200)
-  createShuriken(math.random(0,1200),math.random(0,500),150,150)
-  createShuriken(math.random(0,1200),math.random(0,500),150,150)
+  createShuriken(math.random(0,1200),math.random(0,500),350,150)
   createShuriken(math.random(0,1200),math.random(0,500),250,250)
   createShuriken(math.random(0,1200),math.random(0,500),250,150)
   createShuriken(math.random(0,1200),math.random(0,500),250,150)
+  createShuriken(math.random(0,1200),math.random(0,500),200,350)
   
 end
 
-function shurikenUpdate(dt)
+function updateShuriken(dt)
   
   for i,v in ipairs(shuriken) do
     if v.x < 0 then
