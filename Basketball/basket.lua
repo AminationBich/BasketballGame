@@ -2,11 +2,10 @@ function initBasket()
 
 	basket = {}
   basket.texture = love.graphics.newImage("Textures/basket.png")
-	basket.width = 128
-	basket.height = 128
+	basket.width = 80
+	basket.height = 60
   basket.x = math.random(0,1200 - basket.width)
 	basket.y = math.random(0,600 - basket.height)
-  basket.rotation = 0
 	basket.speedx = 0
 	basket.speedy = 0
 	basket.directionTimer = 0
@@ -14,10 +13,8 @@ function initBasket()
 end
 
 function drawBasket()
-  
-  love.graphics.draw(basket.texture,basket.x + basket.width / 2,basket.y + basket.height / 2,-basket.rotation,1,1,basket.width / 2,basket.height / 2)
 
-	love.graphics.draw(basket.texture,basket.x + basket.width / 2,basket.y + basket.height / 2,basket.rotation,1,1,basket.width / 2,basket.height / 2)
+	love.graphics.draw(basket.texture,basket.x,basket.y)
 
 end
 
@@ -36,10 +33,7 @@ function randomBasketDirection()
 end
 
 
-function updateBasket(dt)
-
-  basket.rotation = basket.rotation + dt
-  if basket.rotation >= 2 * math.pi then basket.rotation = basket.rotation - 2 * math.pi end
+function basketUpdate(dt)
 
 	basket.directionTimer = basket.directionTimer - dt
 
