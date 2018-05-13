@@ -20,6 +20,7 @@ function initPlayer()
   player.health.texture = love.graphics.newImage("Textures/Health.png")
   player.health.width = 40
   player.health.height = 40
+  player.score = 0
   
 end
 
