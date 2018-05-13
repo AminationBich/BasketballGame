@@ -1,6 +1,9 @@
 function getPositiveValue(p_Value)
   
-  -- Funktion soll einen beliebigen Wert (Parameter) bekommen, welcher 
-  -- falls er negativ sein sollte ins positive umgekehrt und zurückgegeben werden soll
-  
+  if p_Value < 0 then
+    p_Value = p_Value * -1
   end
+  
+  return p_Value
+  
+end

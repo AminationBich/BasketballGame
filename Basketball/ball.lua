@@ -72,8 +72,8 @@ end
 
 function increaseScore()
 
-  player.score = player.score + math.floor(ball.bounces * ball.points * (ball.velx + ball.vely) / 500)
-  addScoreText(math.floor(ball.bounces * ball.points * (ball.velx + ball.vely) / 500),basket.x,basket.y)
+  player.score = player.score + math.floor(ball.bounces * ball.points * (getPositiveValue(ball.velx) + getPositiveValue(ball.vely)) / 500)
+  addScoreText(math.floor(ball.bounces * ball.points * (getPositiveValue(ball.velx) + getPositiveValue(ball.vely)) / 500),basket.x,basket.y)
   ball.points = ball.points + 5
   
 end
