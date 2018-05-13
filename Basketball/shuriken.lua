@@ -34,7 +34,7 @@ function createStandardShuriken()
   
 end
 
-function shurikenUpdate(dt)
+function updateShuriken(dt)
   
   for i,v in ipairs(shuriken) do
     if v.x < 0 then

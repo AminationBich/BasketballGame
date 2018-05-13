@@ -166,7 +166,7 @@ function playerMovement(dt)
   
 end
 
-function playerUpdate(dt)
+function updatePlayer(dt)
 
   updatePlayerHitCooldown(dt)
 	playerMovement(dt)

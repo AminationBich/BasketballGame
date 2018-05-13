@@ -3,6 +3,7 @@ require("basket")
 require("player")
 require("shuriken")
 require("GUI")
+require("helperFunctions")
 
 function love.load()
 
@@ -19,10 +20,10 @@ end
 
 function love.update(dt)
   
-  playerUpdate(dt)
-  ballUpdate(dt)
-  basketUpdate(dt)
-  shurikenUpdate(dt)
+  updatePlayer(dt)
+  updateBall(dt)
+  updateBasket(dt)
+  updateShuriken(dt)
   updateGUI(dt)
   
 end
