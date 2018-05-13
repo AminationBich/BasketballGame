@@ -15,6 +15,7 @@ function initPlayer()
   player.canDoubleJump = true
   player.hitCooldown = 0
   player.isHit = false
+  player.score = 0
   player.health = {}
   player.health.amount = 3
   player.health.texture = love.graphics.newImage("Textures/Health.png")
@@ -43,16 +44,6 @@ function drawPlayer()
   
   drawPlayerZPosition()
 
-end
-
-function drawPlayerHealth()
-  
-  for i = 1,player.health.amount,1 do
-    love.graphics.draw(player.health.texture,
-      (4 + player.health.width) * i - player.health.width,
-      10)
-  end
-  
 end
 
 function addPlayerHealth(p_Amount)
@@ -175,14 +166,12 @@ function playerMovement(dt)
   
 end
 
-function playerUpdate(dt)
+function updatePlayer(dt)
 
   updatePlayerHitCooldown(dt)
 	playerMovement(dt)
 	collisionDetection()
-  if not player.canJump then
-    playerGravity(dt)
-  end	
+  if not player.canJump then playerGravity(dt) end	
   
 end
 
