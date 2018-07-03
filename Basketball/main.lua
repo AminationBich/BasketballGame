@@ -3,7 +3,6 @@ require("basket")
 require("player")
 require("shuriken")
 require("GUI")
-require("helperFunctions")
 
 function love.load()
 

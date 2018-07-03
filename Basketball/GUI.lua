@@ -8,11 +8,17 @@ function initGUIComponents()
   gui.scoreBoard.text = love.graphics.newText(gui.fonts.board,player.score)
   gui.scoreBoard.width = gui.scoreBoard.text:getWidth()
   gui.scoreText = {}
+  gui.timer = {}
+  gui.timer.time = 120 -- Sekunden
+  gui.timer.timeText = ""
+  gui.timer.text = love.graphics.newText(gui.fonts.board,"2:00")
+  gui.timer.width = gui.timer.text:getWidth()
   
 end
 
 function updateGUI(dt)
   
+  updateTimer(dt)
   updateScoreText(dt)
   updatePlayerScore(dt)
   
@@ -20,9 +26,32 @@ end
 
 function drawGUI()
   
+  drawTimer()
   drawScoreText()
   drawPlayerHealth()
   drawPlayerScore()
+  
+end
+
+function drawTimer()
+  
+  love.graphics.setColor(1,1,1)
+  love.graphics.draw(gui.timer.text,
+    1200/2 - gui.timer.width / 2,
+    10)
+    
+end
+
+function updateTimer(dt)
+  
+  gui.timer.time = gui.timer.time - dt
+  local l_TimerMinutes
+  local l_TimerSeconds
+  l_TimerMinutes = math.modf(gui.timer.time / 60) 
+  l_TimerSeconds = math.floor(math.fmod(gui.timer.time,60))
+  gui.timer.timeText = l_TimerMinutes .. ":" .. l_TimerSeconds
+  gui.timer.text = love.graphics.newText(gui.fonts.board,gui.timer.timeText)
+  gui.timer.width = gui.timer.text:getWidth()
   
 end
 

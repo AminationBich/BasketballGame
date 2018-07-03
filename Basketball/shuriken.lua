@@ -14,6 +14,8 @@ function createShuriken(p_x,p_y,p_velx,p_vely)
     y = p_y,
     velx = p_velx,
     vely = p_vely,
+    rotation = 0,
+    rotationSpeed = (p_velx + p_vely) / 50000
   }
   
   table.insert(
@@ -63,6 +65,9 @@ function updateShuriken(dt)
     v.x = v.x + v.velx * dt
     v.y = v.y + v.vely * dt
     
+    v.rotation = v.rotation + v.rotationSpeed
+    if v.rotation >= 2 * math.pi then v.rotation = v.rotation - 2 * math.pi end
+    
   end
   
 end
@@ -83,7 +88,7 @@ end
 function drawShuriken()
   
   for i,v in ipairs(shuriken) do
-    love.graphics.draw(shuriken.texture,v.x,v.y)
+    love.graphics.draw(shuriken.texture,v.x + shuriken.width / 2,v.y + shuriken.height / 2,v.rotation,1,1,shuriken.width / 2,shuriken.height / 2)
   end
   
 end
