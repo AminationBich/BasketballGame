@@ -19,11 +19,13 @@ end
 
 function love.update(dt)
   
-  updatePlayer(dt)
-  updateBall(dt)
-  updateBasket(dt)
-  updateShuriken(dt)
-  updateGUI(dt)
+  if not gameOver() then
+    updatePlayer(dt)
+    updateBall(dt)
+    updateBasket(dt)
+    updateShuriken(dt)
+    updateGUI(dt)
+  end
   
 end
 
@@ -37,4 +39,15 @@ function love.draw()
   drawShuriken()
   drawGUI()
 	
+end
+
+function gameOver()
+  
+  if player.health.amount <=0 then return(true) end
+  if gui.timer.time <=0 then 
+    gui.timer.time = 0
+    return(true) 
+  end
+  return(false)
+  
 end

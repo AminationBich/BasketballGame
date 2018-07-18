@@ -15,7 +15,7 @@ function createShuriken(p_x,p_y,p_velx,p_vely)
     velx = p_velx,
     vely = p_vely,
     rotation = 0,
-    rotationSpeed = (p_velx + p_vely) / 50000
+    rotationSpeed = (p_velx + p_vely) / 25000
   }
   
   table.insert(
